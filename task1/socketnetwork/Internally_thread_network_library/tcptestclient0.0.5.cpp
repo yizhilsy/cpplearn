@@ -9,7 +9,7 @@ int main()
     int32_t client_fd = tcp_manager.connect("127.0.0.1", 8080, nullptr, nullptr);
     int ct = 1;
     while (ct <= 10) {
-        tcp_manager.send(client_fd, "hello, it's my life, amazing!", 29);
+        tcp_manager.send(client_fd, "hello, it's my life, full of fight!", 35);
         std::this_thread::sleep_for(std::chrono::seconds(2));
         ct++;
     }

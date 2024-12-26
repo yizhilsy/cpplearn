@@ -15,8 +15,6 @@ int main()
     }
 
     std::cout << "send done!" << std::endl;
-    
-    int client_close_result = ::close(client_fd);
-    std:: cout << "client close result: " << client_close_result << std::endl;
+    close(client_fd);
     return 0;
 }
