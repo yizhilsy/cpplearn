@@ -6,7 +6,7 @@ int main()
 {
     Itcp_manager_implement tcp_manager;
     tcp_manager.init(1);
-    int32_t client_fd = tcp_manager.connect("127.0.0.1", 8080, nullptr, nullptr);
+    int32_t client_fd = tcp_manager.connect("1.95.59.208", 8080, nullptr, nullptr);
     int ct = 1;
     while (ct <= 10) {
         tcp_manager.send(client_fd, "hello, it's my life, beautiful!", 31);

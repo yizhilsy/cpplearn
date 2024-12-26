@@ -379,8 +379,8 @@ void Itcp_manager_implement::eventLoop(int server_fd) {
                 client_fd_array = new int[client_size];
                 client_fd_address_lru->listAllKeys(client_fd_array);
             }
-
-            for (int i = 0; i < client_size; i++) {
+            for (int i = 0; i < client_size; i++)
+            { 
                 int client_fd = client_fd_array[i];
                 // 每次取出client_fd时都需要申请加锁，因为可能有其他线程正在执行关闭client_fd，加锁避免分发线程池已经执行且关闭了client_fd的任务
                 {
@@ -440,7 +440,6 @@ void Itcp_manager_implement::eventLoop(int server_fd) {
                         listen_event->on_accept(client_fd, inet_ntoa(client_address.sin_addr), ntohs(client_address.sin_port));
                         // 线程池中的工作线程可能会并行访问修改client_file_mutex_map,server_fd_max_fd,client_fd_address_lru，因此需要加锁，确保线程安全
                         {
-                            std:: cout << "开始分配给新连接的客户端: " << client_fd << "相关的资源！" << std::endl;
                             std::unique_lock<std::mutex> lock(update_fd_set_mutex);
                             // 更新max_fd
                             server_fd_max_fd[server_fd] = std::max(server_fd_max_fd[server_fd], client_fd);
@@ -453,6 +452,7 @@ void Itcp_manager_implement::eventLoop(int server_fd) {
                             if (size < lru_max_size) { // 此时lru缓存未满
                                 // 插入新client_fd到lru缓存
                                 client_fd_address_lru->add(client_fd, &client_address);
+                                std::cout << "add: " << client_fd << std::endl;
                                 FD_SET(client_fd, &server_fd_set_map[server_fd].allfds);
                             }
                             else { // 此时lru缓存已满，需要同步更新allfds套接字集合

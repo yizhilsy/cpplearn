@@ -233,6 +233,7 @@ void Ilru_mgr_implement<K, V>:: listAllKeys(K* key_array) {
 	while(dlptr != this->rear) {
 		key_array[i] = dlptr->key;
 		dlptr = dlptr->next;
+		i++;
 	}
 }
 
