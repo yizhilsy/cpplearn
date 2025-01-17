@@ -122,15 +122,19 @@ int main()
     std::cout << "Client connected." << std::endl;
 
     // 服务器功能: 读取客户端消息并回显
-
+    int ct = 1;
     // 读入客户端发送的数据到缓冲区中
-    int bytes_read = read(client_socket, buffer, BUFFER_SIZE);
-    buffer[bytes_read] = '\0';
+    while (ct <= 10) {
+        std::cout << "Waiting for client message..." << std::endl;
+        int bytes_read = read(client_socket, buffer, BUFFER_SIZE);
+        std::cout << "bytes_read: " << bytes_read << std::endl;
+        buffer[bytes_read] = '\0';
 
-    std::cout << "Received: " << buffer;
-    send(client_socket, buffer, bytes_read, 0);
-    memset(buffer, 0, BUFFER_SIZE);
-
+        std::cout << "Received: " << buffer;
+        send(client_socket, buffer, bytes_read, 0);
+        memset(buffer, 0, BUFFER_SIZE);
+        ct++;
+    }
     close(client_socket);
     close(server_fd);
     return 0;

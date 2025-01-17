@@ -1,0 +1,5 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     '/Users/shiyulu/workspace/vsccppwsp/shengquTask/task2/llm_http/main'
+relocations:     []
+...
